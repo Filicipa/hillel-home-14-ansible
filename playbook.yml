@@ -1,0 +1,41 @@
+---
+- hosts: main
+  tasks:
+  - name: install nginx
+    apt:
+      name: nginx
+      state: latest
+      update_cache: true
+
+  - name: install docker    
+    apt:
+      name: docker
+      state: latest
+      update_cache: true
+
+  - name: install docker-compose
+    apt:
+      name: docker-compose
+      state: latest
+      update_cache: true
+
+  - name: docker status 
+    service:
+      name: "docker"
+      state: started
+      enabled: yes
+
+  - name: create user and add in docker's group
+    ansible.builtin.user:
+      name: alex
+      shell: /bin/bash
+      groups: docker
+      append: yes
+
+  - name: show nginx version
+    command: nginx -v
+    register: nginx_version
+
+  - name: print version
+    debug: 
+      msg: "NGINX VERSION: '{{ nginx_version.stderr }}'"
