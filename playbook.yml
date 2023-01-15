@@ -1,27 +1,36 @@
 ---
 - hosts: main
   tasks:
-  - name: install nginx
-    apt:
-      name: nginx
-      state: latest
-      update_cache: true
 
-  - name: install docker    
+  - name: Install packages
     apt:
-      name: docker
+      name: {{ item }}
       state: latest
       update_cache: true
+    loop:
+      - nginx
+      - docker
+      - docker-compose
 
-  - name: install docker-compose
-    apt:
-      name: docker-compose
-      state: latest
-      update_cache: true
+#  - name: install nginx
+#    apt:
+#      name: nginx
+#      state: latest
+#
+#  - name: install docker
+#    apt:
+#      name: docker
+#      state: latest
+#
+#  - name: install docker-compose
+#    apt:
+#      name: docker-compose
+#      state: latest
+#      update_cache: true
 
   - name: docker status 
     service:
-      name: "docker"
+      name: docker
       state: started
       enabled: yes
 
