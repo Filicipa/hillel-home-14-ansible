@@ -19,7 +19,7 @@
       enabled: yes
 
   - name: Create user and add in docker's group
-    ansible.builtin.user:
+    user:
       name: alex
       shell: /bin/bash
       groups: docker
