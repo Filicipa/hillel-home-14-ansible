@@ -12,7 +12,7 @@
       - docker
       - docker-compose
 
-  - name: Docker status 
+  - name: Docker status
     service:
       name: docker
       state: started
