@@ -4,7 +4,7 @@
 
   - name: Install packages
     apt:
-      name: {{ item }}
+      name: "{{ item }}"
       state: latest
       update_cache: true
     loop:
@@ -12,39 +12,23 @@
       - docker
       - docker-compose
 
-#  - name: install nginx
-#    apt:
-#      name: nginx
-#      state: latest
-#
-#  - name: install docker
-#    apt:
-#      name: docker
-#      state: latest
-#
-#  - name: install docker-compose
-#    apt:
-#      name: docker-compose
-#      state: latest
-#      update_cache: true
-
-  - name: docker status 
+  - name: Docker status 
     service:
       name: docker
       state: started
       enabled: yes
 
-  - name: create user and add in docker's group
+  - name: Create user and add in docker's group
     ansible.builtin.user:
       name: alex
       shell: /bin/bash
       groups: docker
       append: yes
 
-  - name: show nginx version
+  - name: Show nginx version
     command: nginx -v
     register: nginx_version
 
-  - name: print version
+  - name: Print version
     debug: 
       msg: "NGINX VERSION: '{{ nginx_version.stderr }}'"
